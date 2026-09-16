@@ -151,7 +151,7 @@ export default function Login({ theme }) {
               {verifying ? 'Verifying...' : 'Verify'}
             </button>
             <button type="button" onClick={() => { setStep('email'); setCode(''); setError(''); }}
-              className={`w-full text-sm ${muted} hover:${textColor}`}>
+              className={`w-full text-sm ${muted} transition-colors ${theme === 'dark' ? 'hover:text-white' : 'hover:text-gray-700'}`}>
               Change email
             </button>
           </form>

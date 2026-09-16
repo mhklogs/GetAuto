@@ -29,16 +29,18 @@ export default function Home({ theme }) {
   )
 
   const bg = theme === 'dark' ? 'bg-gray-900' : 'bg-gray-50'
-  const textColor = theme === 'dark' ? 'text-white' : 'text-gray-900'
   const muted = theme === 'dark' ? 'text-gray-400' : 'text-gray-500'
   const inputBg = theme === 'dark' ? 'bg-gray-800 border-gray-700 text-white' : 'bg-white border-gray-300'
 
   return (
     <div className={`${bg} min-h-screen`}>
+      <div className="bg-gradient-to-r from-primary to-amber-500 text-black">
+        <div className="max-w-4xl mx-auto px-4 py-10">
+          <h1 className="text-3xl font-extrabold leading-tight">Rent the ride you need.</h1>
+          <p className="mt-2 text-black/70">Cars, bikes & buses — booked directly from local owners.</p>
+        </div>
+      </div>
       <div className="max-w-4xl mx-auto px-4 py-6">
-        <h1 className={`text-2xl font-bold ${textColor} mb-1`}>Available Vehicles</h1>
-        <p className={`${muted} mb-4`}>Find and book your ride</p>
-
         <input
           type="text"
           placeholder="Search by name, variant, or location"
@@ -47,7 +49,7 @@ export default function Home({ theme }) {
           className={`w-full px-4 py-3 rounded-xl border ${inputBg} focus:ring-2 focus:ring-primary focus:border-transparent outline-none mb-4`}
         />
 
-        <div className="flex gap-2 mb-6 overflow-x-auto pb-2">
+        <div className="flex gap-2 mb-4 overflow-x-auto pb-2">
           {VEHICLE_TYPES.map(t => (
             <button key={t.key} onClick={() => setTypeFilter(t.key)}
               className={`px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-colors ${
@@ -59,6 +61,13 @@ export default function Home({ theme }) {
             </button>
           ))}
         </div>
+
+        {vehicles && vehicles.length > 0 && (
+          <p className={`text-xs ${muted} mb-4`}>
+            {vehicles.length} vehicle{vehicles.length === 1 ? '' : 's'} available
+            {search || typeFilter ? ' · matching your filters' : ''}
+          </p>
+        )}
 
         {!vehicles ? (
           <p className={`text-center ${muted}`}>Loading...</p>

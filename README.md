@@ -12,6 +12,7 @@ A fully offline-capable Progressive Web App for listing, browsing, and booking v
 - Email-based login with 6-digit OTP
 - OTP delivered via **email (SMTP)** — free with any Gmail app password
 - **Demo mode** — OTP shown on screen, no email config needed
+- **Offline-safe** — if the OTP service is unreachable, the app falls back to demo mode automatically so login still works
 - Role selection on first login: **Vendor** or **Customer**
 
 ### 👤 Customer
@@ -70,7 +71,7 @@ A fully offline-capable Progressive Web App for listing, browsing, and booking v
 
 ### 1. Clone & install
 ```bash
-git clone https://github.com/kayanihassaan/GetAuto.git
+git clone https://github.com/mhklogs/GetAuto.git
 cd GetAuto
 npm install
 ```
@@ -137,8 +138,11 @@ GetAuto/
 │   │   ├── Login.jsx        # Email OTP login
 │   │   ├── MyVehicles.jsx   # Vendor dashboard
 │   │   ├── Profile.jsx      # User profile
-│   │   ├── Wishlist.jsx     # Saved vehicles
-│   │   └── AddVehicle.jsx   # Vendor: list a vehicle
+│   │   ├── Wishlist.jsx       # Saved vehicles
+│   │   ├── AddVehicle.jsx     # Vendor: list a vehicle
+│   │   ├── EditVehicle.jsx    # Vendor: edit a vehicle
+│   │   ├── Owners.jsx         # Project owner info
+│   │   └── Settings.jsx       # Theme, booking history, danger zone
 │   ├── App.jsx              # Root component + routes
 │   ├── main.jsx             # Entry point
 │   └── index.css            # Tailwind imports

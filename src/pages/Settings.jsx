@@ -25,8 +25,13 @@ export default function Settings({ theme, setTheme }) {
   const clearAllData = async () => {
     if (confirm('Delete ALL data? This cannot be undone!')) {
       setClearing(true)
-      await db.cars.clear()
-      await db.bookings.clear()
+      await Promise.all([
+        db.vehicles.clear(),
+        db.bookings.clear(),
+        db.ratings.clear(),
+        db.wishlist.clear(),
+        db.otps.clear()
+      ])
       setClearing(false)
       window.location.reload()
     }
@@ -65,7 +70,7 @@ export default function Settings({ theme, setTheme }) {
                   bookings.map(b => (
                     <div key={b.id} className={`p-3 rounded-lg text-sm ${theme === 'dark' ? 'bg-gray-700' : 'bg-gray-100'}`}>
                       <p className={`font-medium ${textColor}`}>{b.customerName} - {new Date(b.startDate).toLocaleDateString()}</p>
-                      <p className={muted}>Car #{b.carId} · Rs. {b.totalPrice} · {b.paymentMethod}</p>
+                      <p className={muted}>Vehicle #{b.vehicleId} · Rs. {b.totalPrice} · {b.paymentMethod}</p>
                     </div>
                   ))
                 )}

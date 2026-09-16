@@ -21,7 +21,25 @@ function AppContent() {
     document.documentElement.className = theme
   }, [theme])
 
-  if (loading) return null
+  if (loading) {
+    return (
+      <div className={`min-h-screen flex flex-col items-center justify-center ${theme === 'dark' ? 'bg-gray-900' : 'bg-gray-50'}`}>
+        <div className="splash-logo">
+          <svg width="72" height="72" viewBox="0 0 512 512" className="mb-4 drop-shadow">
+            <rect width="512" height="512" rx="80" fill="#FFD700"/>
+            <rect x="64" y="192" width="384" height="192" rx="32" fill="#1a1a1a"/>
+            <rect x="96" y="256" width="96" height="64" rx="8" fill="#FFD700"/>
+            <rect x="224" y="256" width="96" height="64" rx="8" fill="#FFD700"/>
+            <rect x="352" y="256" width="96" height="64" rx="8" fill="#FFD700"/>
+            <circle cx="128" cy="352" r="40" fill="#1a1a1a" stroke="#FFD700" strokeWidth="4"/>
+            <circle cx="384" cy="352" r="40" fill="#1a1a1a" stroke="#FFD700" strokeWidth="4"/>
+          </svg>
+        </div>
+        <p className={`font-semibold ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>GetAuto</p>
+        <p className={`text-sm ${theme === 'dark' ? 'text-gray-400' : 'text-gray-500'}`}>Vehicle Rental Marketplace</p>
+      </div>
+    )
+  }
 
   if (!user) {
     return <Login theme={theme} />

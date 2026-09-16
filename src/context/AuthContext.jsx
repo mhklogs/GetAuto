@@ -18,14 +18,22 @@ export function AuthProvider({ children }) {
   }, [])
 
   const sendOTP = useCallback(async (email) => {
-    const res = await fetch(`${API}/api/send-otp`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email })
-    })
-    const data = await res.json()
+    let code = ''
+    try {
+      const res = await fetch(`${API}/api/send-otp`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email })
+      })
+      const data = await res.json()
+      code = data.code || ''
+    } catch (err) {
+      console.warn('OTP service unreachable, falling back to demo mode', err)
+    }
 
-    const code = data.code || ''
+    if (!code) {
+      code = String(Math.floor(100000 + Math.random() * 900000))
+    }
 
     const expiresAt = Date.now() + 5 * 60 * 1000
     await db.otps.add({ email, code, expiresAt })
